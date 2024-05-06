@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <ProjectReference Include="..\LlmChatBot.ServiceDefaults\LlmChatBot.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LlmChatBot.ServiceDefaults\LlmChatBot.ServiceDefaults.csproj" />
+	  <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.0.0-preview.6.24214.1" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

@@ -14,6 +14,8 @@ namespace LlmChatBot.ApiService.Services
 
         public ChatService(IConfiguration configuration, ILogger<ChatService> logger)
         {
+            if (!File.Exists(configuration["ModelPath"]))
+                throw new Exception("LLM File not found");
             var @params = new LLama.Common.ModelParams(configuration["ModelPath"]!)
             {
                 ContextSize = 2048, // The longest length of chat as memory.

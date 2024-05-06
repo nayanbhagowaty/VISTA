@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System.Net.Http.Json;
 using System.Text;
 
 namespace LlmChatBot.Web;
@@ -8,7 +7,7 @@ public class ChatApiClient(HttpClient httpClient)
 {
     public async Task<WeatherForecast[]> GetWeatherAsync()
     {
-        return await httpClient.GetFromJsonAsync<WeatherForecast[]>("/weatherforecast") ?? [];
+        return await httpClient.GetFromJsonAsync<WeatherForecast[]>("/streamtest") ?? [];
     }
     public async Task<string> GetResponseAsync(string query)
     {
