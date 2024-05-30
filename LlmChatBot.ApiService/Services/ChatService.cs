@@ -18,8 +18,8 @@ namespace LlmChatBot.ApiService.Services
                 throw new Exception("LLM File not found");
             var @params = new LLama.Common.ModelParams(configuration["ModelPath"]!)
             {
-                ContextSize = 2048, // The longest length of chat as memory.
-                GpuLayerCount = 10 // How many layers to offload to GPU. Please adjust it according to your GPU memory.
+                ContextSize = 4096, // The longest length of chat as memory.
+                GpuLayerCount = 1000 // How many layers to offload to GPU. Please adjust it according to your GPU memory.
             };
 
             // todo: share weights from a central service

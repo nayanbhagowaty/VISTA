@@ -24,10 +24,10 @@ h1:focus {
         content: "An error has occurred."
     }
 body {
-    background-color: black;
+    background-color: antiquewhite;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: left;
     min-height: 100vh;
 }
 
@@ -40,8 +40,9 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    margin: 0px 0px;
-    border-radius: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 
 .searchArea button {

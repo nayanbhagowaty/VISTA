@@ -15,23 +15,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
 app.MapPost("/chat", ([FromBody] UserMessage input, [FromServices] ChatService _service) =>
 {
     return _service.Send(input);
@@ -48,6 +31,33 @@ app.MapPost("/chatstream", async ([FromBody] UserMessage input, [FromServices] C
 
     await httpContext.Response.CompleteAsync();
 });
+
+app.MapGet("/chatstream", async (CancellationToken cancellationToken, HttpContext httpContext) =>
+{
+    httpContext.Response.ContentType = "text/event-stream";
+    foreach (var i in Enumerable.Range(0, 100))
+    {
+        await httpContext.Response.WriteAsync("data: count" + i + "\n\n", cancellationToken);
+        await httpContext.Response.Body.FlushAsync(cancellationToken);
+        await Task.Delay(1000);
+    }
+    await httpContext.Response.CompleteAsync();
+});
+
+app.MapPost("/chatstream2", async ([FromBody] UserMessage input, CancellationToken cancellationToken, HttpContext httpContext) =>
+{
+    httpContext.Response.ContentType = "text/event-stream";
+    await httpContext.Response.WriteAsync("data: Question: " + input.Text + "\n\n", cancellationToken);
+    await httpContext.Response.Body.FlushAsync(cancellationToken);
+    foreach (var i in Enumerable.Range(0, 100))
+    {
+        await httpContext.Response.WriteAsync("data: Count: " + i + "\n\n", cancellationToken);
+        await httpContext.Response.Body.FlushAsync(cancellationToken);
+        await Task.Delay(1000);
+    }
+    await httpContext.Response.CompleteAsync();
+});
+
 app.MapDefaultEndpoints();
 
 app.Run();

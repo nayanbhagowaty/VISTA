@@ -1,14 +1,11 @@
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace LlmChatBot.Web;
 
 public class ChatApiClient(HttpClient httpClient)
 {
-    public async Task<WeatherForecast[]> GetWeatherAsync()
-    {
-        return await httpClient.GetFromJsonAsync<WeatherForecast[]>("/streamtest") ?? [];
-    }
     public async Task<string> GetResponseAsync(string query)
     {
         string responseText = "";
@@ -16,6 +13,7 @@ public class ChatApiClient(HttpClient httpClient)
         {
             var payload = new { text = query };
             var Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
             var response = await httpClient.PostAsync("/chatstream", Content);
             if (response.IsSuccessStatusCode)
             {
@@ -43,9 +41,38 @@ public class ChatApiClient(HttpClient httpClient)
         }
         return responseText;
     }
-}
+    public async Task<HttpResponseMessage> GetResponseMessageAsync(string query)
+    {
+        var payload = new { text = query };
+            var Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
+            return await httpClient.PostAsync("/chatstream", Content);
+    }
 
-public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public async Task<Stream> GetResponseStreamAsync()
+    {
+        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
+        return await httpClient.GetStreamAsync("/chatstream");
+    }
+    public async Task<HttpResponseMessage> GetResponseStreamAsync2(string query)
+    {
+        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
+        var payload = new { text = query };
+        var request = new HttpRequestMessage(HttpMethod.Post, "/chatstream2")
+        {
+            Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json")
+        };
+        return await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+    }
+
+    public async Task<HttpResponseMessage> GetResponseStreamAsync(string query)
+    {
+        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
+        var payload = new { text = query };
+        var request = new HttpRequestMessage(HttpMethod.Post, "/chatstream")
+        {
+            Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json")
+        };
+        return await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+    }
 }
