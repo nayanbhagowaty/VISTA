@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -11,8 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching"/>
+	  <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" />
 	  <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Components\Pages\Summarize.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
   </ItemGroup>
 
 </Project>

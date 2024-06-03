@@ -12,59 +12,11 @@
     </div>
     <div class="searchResult">
         <InputTextArea class="form-control" style="height:450px" @bind-Value="@AIRequest.Response" placeholder="AI will respond here..." readonly />
-        @* @foreach (var s in _events)
-        {
-            <span>&nbsp;@s</span>
-        } *@
     </div>
 </EditForm>
 @inject ChatService chatService
 @code {
     Message AIRequest = new();
-    List<string> _events = new List<string>();
-    public async Task GetAPIResponse2()
-    {
-        try
-        {
-            var response = await chatApi.GetResponseMessageAsync(AIRequest.Request);
-            if (response.IsSuccessStatusCode)
-            {
-                // Read the response stream asynchronously and update responseText
-                using (var stream = await response.Content.ReadAsStreamAsync())
-                using (var reader = new StreamReader(stream))
-                {
-                    while (await reader.ReadLineAsync() is { } line)
-                    {
-                        if (line.StartsWith("data:"))
-                        {
-                            var eventData = line.Substring(5).Trim();
-                            _events.Add(eventData);
-                            StateHasChanged();
-                        }
-                    }
-                    // string line;
-                    // while ((line = await reader.ReadLineAsync()) != null)
-                    // {
-                    //     AIRequest.Response += line.Replace("data:", ""); // Add each line of the response to the responseText
-                    //     StateHasChanged();
-                    // }
-                }
-            }
-            else
-            {
-                // Handle error response
-                // AIRequest.Response += "Error: " + response.StatusCode;
-                _events.Add("Error: " + response.StatusCode);
-            }
-            StateHasChanged();
-        }
-        catch (Exception ex)
-        {
-            // AIRequest.Response += ex.ToString();
-            _events.Add(ex.ToString());
-        }
-    }
-
     public async Task GetAPIResponse()
     {
         try
@@ -79,7 +31,6 @@
                 if (line.StartsWith("data:"))
                 {
                     var eventData = line.Substring(5).Trim();
-                    // _events.Add(eventData);
                     AIRequest.Response += " " + eventData;
                     StateHasChanged();
                 }

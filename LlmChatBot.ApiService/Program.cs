@@ -4,22 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ChatService>();
-// Add service defaults & Aspire components.
 builder.AddServiceDefaults();
-
-// Add services to the container.
 builder.Services.AddProblemDetails();
-
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
-app.MapPost("/chat", ([FromBody] UserMessage input, [FromServices] ChatService _service) =>
-{
-    return _service.Send(input);
-});
-app.MapPost("/chatstream", async ([FromBody] UserMessage input, [FromServices] ChatService _service, CancellationToken cancellationToken, HttpContext httpContext) =>
+app.MapPost("/chat", async ([FromBody] UserMessage input, [FromServices] ChatService _service, CancellationToken cancellationToken, HttpContext httpContext) =>
 {
     httpContext.Response.ContentType = "text/event-stream";
 
@@ -31,38 +21,47 @@ app.MapPost("/chatstream", async ([FromBody] UserMessage input, [FromServices] C
 
     await httpContext.Response.CompleteAsync();
 });
-
-app.MapGet("/chatstream", async (CancellationToken cancellationToken, HttpContext httpContext) =>
+app.MapPost("/v1/chat/completions", async ([FromBody] ChatRequest request, [FromServices] ChatService _service, CancellationToken cancellationToken, HttpContext httpContext) =>
 {
-    httpContext.Response.ContentType = "text/event-stream";
-    foreach (var i in Enumerable.Range(0, 100))
-    {
-        await httpContext.Response.WriteAsync("data: count" + i + "\n\n", cancellationToken);
-        await httpContext.Response.Body.FlushAsync(cancellationToken);
-        await Task.Delay(1000);
-    }
-    await httpContext.Response.CompleteAsync();
-});
+    //var request1 = await httpContext.Request.ReadFromJsonAsync<ChatRequest>();
 
-app.MapPost("/chatstream2", async ([FromBody] UserMessage input, CancellationToken cancellationToken, HttpContext httpContext) =>
-{
-    httpContext.Response.ContentType = "text/event-stream";
-    await httpContext.Response.WriteAsync("data: Question: " + input.Text + "\n\n", cancellationToken);
-    await httpContext.Response.Body.FlushAsync(cancellationToken);
-    foreach (var i in Enumerable.Range(0, 100))
+    // Here you would call your model and generate a response.
+    // This is just a placeholder response.
+    var chatresponse = await _service.Send(new UserMessage { Text = request.Messages.First().Content });
+
+    var response = new ChatResponse
     {
-        await httpContext.Response.WriteAsync("data: Count: " + i + "\n\n", cancellationToken);
-        await httpContext.Response.Body.FlushAsync(cancellationToken);
-        await Task.Delay(1000);
-    }
-    await httpContext.Response.CompleteAsync();
+        Id = "chatcmpl-123",
+        Object = "chat.completion",
+        Created = 1677652288,
+        Model = "gpt-3.5-turbo-0125",
+        SystemFingerprint = "fp_44709d6fcb",
+        Choices = new List<Choice>
+        {
+            new Choice
+            {
+                Index = 0,
+                Message = new Message("assistant",chatresponse),
+                //Message = new Message
+                //{
+                //    Role = "assistant",
+                //    Content = "\n\nHello there, how may I assist you today?",
+                //},
+                Logprobs = null,
+                FinishReason = "stop"
+            }
+        },
+        Usage = new Usage
+        {
+            PromptTokens = 9,
+            CompletionTokens = 12,
+            TotalTokens = 21
+        }
+    };
+
+    await httpContext.Response.WriteAsJsonAsync(response);
 });
 
 app.MapDefaultEndpoints();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
