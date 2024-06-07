@@ -12,6 +12,9 @@
 
   <ItemGroup>
 	  <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" />
+	  <PackageReference Include="Microsoft.SemanticKernel" />
+	  <PackageReference Include="Microsoft.SemanticKernel.Abstractions" />
+	  <PackageReference Include="Microsoft.SemanticKernel.Core" />
 	  <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 

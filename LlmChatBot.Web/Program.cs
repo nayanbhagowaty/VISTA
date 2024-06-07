@@ -2,6 +2,8 @@ using LlmChatBot.Web;
 using LlmChatBot.Web.Components;
 using LlmChatBot.Web.Service;
 using Microsoft.Extensions.Options;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,11 +29,11 @@ builder.Services.AddSingleton<ChatService>(cp =>
     return new ChatService(apiUrl, apiKey);
 });
 
-//builder.Services.AddSingleton<IChatCompletionService>(sp =>
-//{
-//    AzureOpenAI options = sp.GetRequiredService<IOptions<AzureOpenAI>>().Value;
-//    return new AzureOpenAIChatCompletionService(options.ChatDeploymentName, options.Endpoint, options.ApiKey);
-//});
+builder.Services.AddSingleton<IChatCompletionService>(sp =>
+{
+    AzureOpenAI options = sp.GetRequiredService<IOptions<AzureOpenAI>>().Value;
+    return new AzureOpenAIChatCompletionService(options.ChatDeploymentName, options.Endpoint, options.ApiKey);
+});
 //https://devblogs.microsoft.com/semantic-kernel/using-semantic-kernel-with-dependency-injection/
 var app = builder.Build();
 
