@@ -62,3 +62,4 @@ namespace LlmChatBot.Agent
         }
     }
 }
+//https://www.assemblyai.com/blog/ask-dotnetrocks-questions-semantic-kernel/
