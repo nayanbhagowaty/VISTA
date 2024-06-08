@@ -1,11 +1,8 @@
-﻿using System.Text;
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Chroma;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Text;
 
 namespace LlmChatBot.Agent
 {
@@ -24,13 +21,43 @@ namespace LlmChatBot.Agent
             config = CreateConfig();
             kernel = CreateKernel();
             memory = CreateMemory();
-            var questionFunction = kernel.CreateFunctionFromPrompt(
-                    "When did {{$artist}} release '{{$song}}'?"
+
+            const string question = "When did Taylor Swift release 'Anti-Hero'?";
+            // verify that embeddings generation and Chroma DB connector works
+            const string collectionName = "Songs";
+            await memory.SaveInformationAsync(
+                collection: collectionName,
+                text: """
+                  Song name: Never Gonna Give You Up
+                  Artist: Rick Astley
+                  Release date: 27 July 1987
+                  """,
+                id: "nevergonnagiveyouup_ricksastley"
             );
+            await memory.SaveInformationAsync(
+                collection: collectionName,
+                text: """
+                  Song name: Anti-Hero
+                  Artist: Taylor Swift
+                  Release date: October 24, 2022
+                  """,
+                id: "antihero_taylorswift"
+            );
+
+            var docs = memory.SearchAsync(collectionName, query: question, limit: 1);
+            var doc = docs.ToBlockingEnumerable().SingleOrDefault();
+            Console.WriteLine("Chroma DB result: {0}", doc?.Metadata.Text);
+
+            var questionFunction = kernel.CreateFunctionFromPrompt(
+                """
+                Here is relevant context: {{$context}}
+                ---
+                {{$question}}
+                """);
             var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
             {
-                ["song"] = "Blank Space",
-                ["artist"] = "Taylor Swift",
+                ["context"] = doc?.Metadata.Text,
+                ["question"] = question
             });
             Console.WriteLine("Answer: {0}", result.GetValue<string>());
         }
