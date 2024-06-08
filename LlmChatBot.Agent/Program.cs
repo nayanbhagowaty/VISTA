@@ -19,8 +19,20 @@ namespace LlmChatBot.Agent
         public static async Task Main(string[] args)
         {
             config = CreateConfig();
-            kernel = CreateKernel();
+            kernel = CreateKernel2();
             memory = CreateMemory();
+
+
+            // verify chat completion service works
+            var questionFunction = kernel.CreateFunctionFromPrompt(
+                "When did {{$artist}} release '{{$song}}'?"
+            );
+            var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            {
+                ["song"] = "Blank Space",
+                ["artist"] = "Taylor Swift",
+            });
+            Console.WriteLine("Answer: {0}", result.GetValue<string>());
 
             const string question = "When did Taylor Swift release 'Anti-Hero'?";
             // verify that embeddings generation and Chroma DB connector works
@@ -48,13 +60,13 @@ namespace LlmChatBot.Agent
             var doc = docs.ToBlockingEnumerable().SingleOrDefault();
             Console.WriteLine("Chroma DB result: {0}", doc?.Metadata.Text);
 
-            var questionFunction = kernel.CreateFunctionFromPrompt(
+            questionFunction = kernel.CreateFunctionFromPrompt(
                 """
                 Here is relevant context: {{$context}}
                 ---
                 {{$question}}
                 """);
-            var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            result = await questionFunction.InvokeAsync(kernel, new KernelArguments
             {
                 ["context"] = doc?.Metadata.Text,
                 ["question"] = question
@@ -78,6 +90,16 @@ namespace LlmChatBot.Agent
                 .AddOpenAIChatCompletion(CompletionModel, GetOpenAiApiKey());
 
             return builder.Build();
+        }
+
+        private static Kernel CreateKernel2()
+        {
+            HttpClient client = new HttpClient(new CustomHttpHandler());
+
+            var kernel = Kernel.CreateBuilder()
+                .AddOpenAIChatCompletion("fake-model-name", "fake-api-key", httpClient: client);
+
+            return kernel.Build();
         }
 
         private static ISemanticTextMemory CreateMemory()
