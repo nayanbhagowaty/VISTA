@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ChatService>();
+builder.Services.AddSingleton<EmbeddingService>();
 builder.AddServiceDefaults();
 builder.Services.AddProblemDetails();
 var app = builder.Build();
@@ -61,7 +62,12 @@ app.MapPost("/v1/chat/completions", async ([FromBody] ChatRequest request, [From
 
     await httpContext.Response.WriteAsJsonAsync(response);
 });
-
+app.MapPost("/v1/embeddings", async([FromBody] EmbeddingRequest request, [FromServices] EmbeddingService _service, CancellationToken cancellationToken, HttpContext httpContext) =>{
+    var embeddings = await _service.GetEmbeddings(request.Text);
+    await httpContext.Response.WriteAsync("data:" + embeddings + "\n\n", cancellationToken);
+    await httpContext.Response.Body.FlushAsync(cancellationToken);
+    await httpContext.Response.CompleteAsync();
+});
 app.MapDefaultEndpoints();
 
 app.Run();

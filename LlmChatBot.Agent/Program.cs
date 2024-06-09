@@ -106,7 +106,7 @@ namespace LlmChatBot.Agent
         {
             return new MemoryBuilder()
                 .WithChromaMemoryStore(ChromeDbEndpoint)
-                .WithOpenAITextEmbeddingGeneration(EmbeddingsModel, GetOpenAiApiKey())
+                .WithOpenAITextEmbeddingGeneration(EmbeddingsModel,"", GetOpenAiApiKey())
                 .Build();
         }
     }
