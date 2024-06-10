@@ -6,6 +6,7 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ChatService>();
 builder.Services.AddSingleton<EmbeddingService>();
+builder.Services.AddSingleton<CodeCompletionService>();
 builder.AddServiceDefaults();
 builder.Services.AddProblemDetails();
 var app = builder.Build();
@@ -69,6 +70,18 @@ app.MapPost("/v1/embeddings", async([FromBody] EmbeddingRequest request, [FromSe
     embeddingResponse.data = new List<Datum> { new Datum { Embedding = embeddings} };
     await httpContext.Response.WriteAsync(JsonSerializer.Serialize(embeddingResponse), cancellationToken);
     await httpContext.Response.Body.FlushAsync(cancellationToken);
+    await httpContext.Response.CompleteAsync();
+});
+app.MapPost("/codecompletion", async ([FromBody] string input, [FromServices] CodeCompletionService _service, CancellationToken cancellationToken, HttpContext httpContext) =>
+{
+    httpContext.Response.ContentType = "text/event-stream";
+
+    await foreach (var r in _service.GetCodeComplete(input))
+    {
+        await httpContext.Response.WriteAsync("data:" + r + "\n\n", cancellationToken);
+        await httpContext.Response.Body.FlushAsync(cancellationToken);
+    }
+
     await httpContext.Response.CompleteAsync();
 });
 app.MapDefaultEndpoints();
