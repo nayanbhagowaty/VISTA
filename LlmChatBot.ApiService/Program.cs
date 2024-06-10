@@ -1,6 +1,7 @@
 using LlmChatBot.ApiService.Models;
 using LlmChatBot.ApiService.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ChatService>();
@@ -63,8 +64,10 @@ app.MapPost("/v1/chat/completions", async ([FromBody] ChatRequest request, [From
     await httpContext.Response.WriteAsJsonAsync(response);
 });
 app.MapPost("/v1/embeddings", async([FromBody] EmbeddingRequest request, [FromServices] EmbeddingService _service, CancellationToken cancellationToken, HttpContext httpContext) =>{
-    var embeddings = await _service.GetEmbeddings(request.Text);
-    await httpContext.Response.WriteAsync("data:" + embeddings + "\n\n", cancellationToken);
+    var embeddings = await _service.GetEmbeddings(request.Input);
+    var embeddingResponse = new EmbeddingResponse();
+    embeddingResponse.data = new List<Datum> { new Datum { Embedding = embeddings} };
+    await httpContext.Response.WriteAsync(JsonSerializer.Serialize(embeddingResponse), cancellationToken);
     await httpContext.Response.Body.FlushAsync(cancellationToken);
     await httpContext.Response.CompleteAsync();
 });

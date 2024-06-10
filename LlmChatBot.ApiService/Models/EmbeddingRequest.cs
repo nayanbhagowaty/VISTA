@@ -4,13 +4,9 @@ namespace LlmChatBot.ApiService.Models
 {
     public class EmbeddingRequest
     {
-        public string Text { get; set; }
+        public string Input { get; set; }
         public string Model { get; set; } = "fake";
         public string Encoding_format { get; set; } = "float";
-        public EmbeddingRequest(string text)
-        {
-            Text = text;
-        }
     }
     public class EmbeddingResponse
     {
@@ -22,7 +18,7 @@ namespace LlmChatBot.ApiService.Models
     public class Datum
     {
         public string @object { get; set; }
-        public List<double> embedding { get; set; }
+        public float[] Embedding { get; set; }
         public int index { get; set; }
     }
     //public class Usage

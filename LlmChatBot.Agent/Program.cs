@@ -11,7 +11,7 @@ namespace LlmChatBot.Agent
         private const string CompletionModel = "gpt-3.5-turbo";
         private const string EmbeddingsModel = "text-embedding-ada-002";
         private const string ChromeDbEndpoint = "http://localhost:8000";
-
+        private static HttpClient client = new HttpClient(new CustomHttpHandler());
         private static IConfiguration config;
         private static Kernel kernel;
         private static ISemanticTextMemory memory;
@@ -27,12 +27,12 @@ namespace LlmChatBot.Agent
             var questionFunction = kernel.CreateFunctionFromPrompt(
                 "When did {{$artist}} release '{{$song}}'?"
             );
-            var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
-            {
-                ["song"] = "Blank Space",
-                ["artist"] = "Taylor Swift",
-            });
-            Console.WriteLine("Answer: {0}", result.GetValue<string>());
+            //var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            //{
+            //    ["song"] = "Blank Space",
+            //    ["artist"] = "Taylor Swift",
+            //});
+            //Console.WriteLine("Answer: {0}", result.GetValue<string>());
 
             const string question = "When did Taylor Swift release 'Anti-Hero'?";
             // verify that embeddings generation and Chroma DB connector works
@@ -66,7 +66,7 @@ namespace LlmChatBot.Agent
                 ---
                 {{$question}}
                 """);
-            result = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
             {
                 ["context"] = doc?.Metadata.Text,
                 ["question"] = question
@@ -94,8 +94,6 @@ namespace LlmChatBot.Agent
 
         private static Kernel CreateKernel2()
         {
-            HttpClient client = new HttpClient(new CustomHttpHandler());
-
             var kernel = Kernel.CreateBuilder()
                 .AddOpenAIChatCompletion("fake-model-name", "fake-api-key", httpClient: client);
 
@@ -106,7 +104,8 @@ namespace LlmChatBot.Agent
         {
             return new MemoryBuilder()
                 .WithChromaMemoryStore(ChromeDbEndpoint)
-                .WithOpenAITextEmbeddingGeneration(EmbeddingsModel,"", GetOpenAiApiKey())
+                //.WithOpenAITextEmbeddingGeneration(EmbeddingsModel,"", GetOpenAiApiKey())
+                .WithOpenAITextEmbeddingGeneration(EmbeddingsModel,"fake", httpClient:client)
                 .Build();
         }
     }
