@@ -103,7 +103,7 @@ namespace LlmChatBot.Agent
         private static ISemanticTextMemory CreateMemory()
         {
             return new MemoryBuilder()
-                .WithChromaMemoryStore(ChromeDbEndpoint)
+                .WithChromaMemoryStore(ChromeDbEndpoint) //ToDo: use MSSQL Memo
                 //.WithOpenAITextEmbeddingGeneration(EmbeddingsModel,"", GetOpenAiApiKey())
                 .WithOpenAITextEmbeddingGeneration(EmbeddingsModel,"fake", httpClient:client)
                 .Build();

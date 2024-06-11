@@ -11,6 +11,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.5.0" />
+    <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.SQLServer" Version="0.62.240605.1" />
     <PackageVersion Include="Microsoft.SemanticKernel" Version="1.14.1" />
     <PackageVersion Include="Microsoft.SemanticKernel.Abstractions" Version="1.14.1" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Chroma" Version="1.14.1-alpha" />
