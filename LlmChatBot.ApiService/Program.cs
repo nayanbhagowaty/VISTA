@@ -65,7 +65,7 @@ app.MapPost("/v1/chat/completions", async ([FromBody] ChatRequest request, [From
     await httpContext.Response.WriteAsJsonAsync(response);
 });
 app.MapPost("/v1/embeddings", async([FromBody] EmbeddingRequest request, [FromServices] EmbeddingService _service, CancellationToken cancellationToken, HttpContext httpContext) =>{
-    var embeddings = await _service.GetEmbeddings(request.Input);
+    var embeddings = await _service.GetEmbeddings(request.Input[0]);
     var embeddingResponse = new EmbeddingResponse();
     embeddingResponse.data = new List<Datum> { new Datum { Embedding = embeddings} };
     await httpContext.Response.WriteAsync(JsonSerializer.Serialize(embeddingResponse), cancellationToken);

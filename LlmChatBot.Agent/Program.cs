@@ -8,8 +8,8 @@ namespace LlmChatBot.Agent
 {
     internal class Program
     {
-        private const string CompletionModel = "gpt-3.5-turbo";
-        private const string EmbeddingsModel = "text-embedding-ada-002";
+        private const string CompletionModel = "fake";
+        private const string EmbeddingsModel = "Phi-2";
         private const string ChromeDbEndpoint = "http://localhost:8000";
         private static HttpClient client = new HttpClient(new CustomHttpHandler());
         private static IConfiguration config;

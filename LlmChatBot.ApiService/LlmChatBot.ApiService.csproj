@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LLamaSharp"/>
+    <PackageReference Include="LLamaSharp" />
     <PackageReference Include="LLamaSharp.Backend.Cuda12" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" />
   </ItemGroup>
 
   <ItemGroup>
