@@ -27,16 +27,16 @@ namespace LlmChatBot.Agent
             var questionFunction = kernel.CreateFunctionFromPrompt(
                 "When did {{$artist}} release '{{$song}}'?"
             );
-            //var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
-            //{
-            //    ["song"] = "Blank Space",
-            //    ["artist"] = "Taylor Swift",
-            //});
-            //Console.WriteLine("Answer: {0}", result.GetValue<string>());
+            var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            {
+                ["song"] = "Blank Space",
+                ["artist"] = "Taylor Swift",
+            });
+            Console.WriteLine("Answer: {0}", result.GetValue<string>());
 
             const string question = "When did Taylor Swift release 'Anti-Hero'?";
             // verify that embeddings generation and Chroma DB connector works
-            const string collectionName = "Songs";
+            const string collectionName = "Songs2";
             await memory.SaveInformationAsync(
                 collection: collectionName,
                 text: """
@@ -66,7 +66,7 @@ namespace LlmChatBot.Agent
                 ---
                 {{$question}}
                 """);
-            var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            result = await questionFunction.InvokeAsync(kernel, new KernelArguments
             {
                 ["context"] = doc?.Metadata.Text,
                 ["question"] = question
