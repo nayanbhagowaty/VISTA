@@ -72,11 +72,11 @@ app.MapPost("/v1/embeddings", async([FromBody] EmbeddingRequest request, [FromSe
     await httpContext.Response.Body.FlushAsync(cancellationToken);
     await httpContext.Response.CompleteAsync();
 });
-app.MapPost("/codecompletion", async ([FromBody] string input, [FromServices] CodeCompletionService _service, CancellationToken cancellationToken, HttpContext httpContext) =>
+app.MapPost("/codecompletion", async ([FromBody] UserMessage input, [FromServices] CodeCompletionService _service, CancellationToken cancellationToken, HttpContext httpContext) =>
 {
     httpContext.Response.ContentType = "text/event-stream";
 
-    await foreach (var r in _service.GetCodeComplete(input))
+    await foreach (var r in _service.GetCodeComplete(input.Text))
     {
         await httpContext.Response.WriteAsync("data:" + r + "\n\n", cancellationToken);
         await httpContext.Response.Body.FlushAsync(cancellationToken);

@@ -29,14 +29,21 @@ namespace LlmChatBot.Agent
             );
             var result = await questionFunction.InvokeAsync(kernel, new KernelArguments
             {
-                ["song"] = "Blank Space",
+                ["song"] = "my zero to hero",
                 ["artist"] = "Taylor Swift",
             });
             Console.WriteLine("Answer: {0}", result.GetValue<string>());
 
-            const string question = "When did Taylor Swift release 'Anti-Hero'?";
+            var result1 = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            {
+                ["song"] = "Blank Space",
+                ["artist"] = "Taylor Swift",
+            });
+            Console.WriteLine("Answer: {0}", result1.GetValue<string>());
+
+            const string question = "When did Taylor Swift release 'my zero to hero'?";
             // verify that embeddings generation and Chroma DB connector works
-            const string collectionName = "Songs2";
+            const string collectionName = "Songs";
             await memory.SaveInformationAsync(
                 collection: collectionName,
                 text: """
@@ -49,12 +56,22 @@ namespace LlmChatBot.Agent
             await memory.SaveInformationAsync(
                 collection: collectionName,
                 text: """
-                  Song name: Anti-Hero
+                  Song name: Anti-zero
                   Artist: Taylor Swift
-                  Release date: October 24, 2022
+                  Release date: December 31, 2020
                   """,
                 id: "antihero_taylorswift"
             );
+
+            await memory.SaveInformationAsync(
+               collection: collectionName,
+               text: """
+                  Song name: my-zero-to-hero
+                  Artist: Taylor Swift
+                  Release date: December 31, 2023
+                  """,
+               id: "antihero_taylorswift_zero"
+           );
 
             var docs = memory.SearchAsync(collectionName, query: question, limit: 1);
             var doc = docs.ToBlockingEnumerable().SingleOrDefault();
@@ -66,12 +83,14 @@ namespace LlmChatBot.Agent
                 ---
                 {{$question}}
                 """);
-            result = await questionFunction.InvokeAsync(kernel, new KernelArguments
+            var result3 = await questionFunction.InvokeAsync(kernel, new KernelArguments
             {
                 ["context"] = doc?.Metadata.Text,
                 ["question"] = question
             });
-            Console.WriteLine("Answer: {0}", result.GetValue<string>());
+            Console.WriteLine("Answer: {0}", result3.GetValue<string>());
+
+
         }
 
         private static IConfiguration CreateConfig() => new ConfigurationBuilder()

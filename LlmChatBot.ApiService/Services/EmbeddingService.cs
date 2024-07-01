@@ -10,9 +10,9 @@ namespace LlmChatBot.ApiService.Services
         private string modelPath = "";
         public EmbeddingService(IConfiguration configuration, ILogger<EmbeddingService> logger)
         {
-            if (!File.Exists(configuration["ModelPath"]))
+            if (!File.Exists(configuration["EmbeddingModelPath"]))
                 throw new Exception("LLM File not found");
-            modelPath = configuration["ModelPath"];
+            modelPath = configuration["EmbeddingModelPath"];
             _logger = logger;
         }
         public async Task<float[]> GetEmbeddings(string text)

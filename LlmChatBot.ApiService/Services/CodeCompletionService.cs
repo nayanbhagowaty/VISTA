@@ -44,6 +44,7 @@ namespace LlmChatBot.ApiService.Services
             instruction += userInstruction;
             await foreach (var text in executor.InferAsync(instruction + Environment.NewLine, inferenceParams))
             {
+                _logger.LogInformation(text);
                 yield return text;
             }
         }

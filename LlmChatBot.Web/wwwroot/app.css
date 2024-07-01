@@ -67,7 +67,7 @@ body {
 .searchResult {
     margin: 5px;
     border-radius: 20px;
-    height: 450px;
+    height: 750px;
     overflow: hidden;
     border: solid 1px gray;
 }

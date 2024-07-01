@@ -12,6 +12,7 @@
 
   <ItemGroup>
 	  <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" />
+	  <PackageReference Include="Markdig.Signed" />
 	  <PackageReference Include="Microsoft.SemanticKernel" />
 	  <PackageReference Include="Microsoft.SemanticKernel.Abstractions" />
 	  <PackageReference Include="Microsoft.SemanticKernel.Core" />
@@ -22,6 +23,10 @@
     <Content Update="Components\Pages\Summarize.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Handler\" />
   </ItemGroup>
 
 </Project>
