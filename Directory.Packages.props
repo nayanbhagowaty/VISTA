@@ -11,25 +11,25 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.7.0" />
-    <PackageVersion Include="Microsoft.KernelMemory.Abstractions" Version="0.70.240803.1" />
-    <PackageVersion Include="Microsoft.KernelMemory.Core" Version="0.70.240803.1" />
-    <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.SQLServer" Version="0.70.240803.1" />
-    <PackageVersion Include="Microsoft.SemanticKernel" Version="1.17.1" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Abstractions" Version="1.17.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.8.0" />
+    <PackageVersion Include="Microsoft.KernelMemory.Abstractions" Version="0.71.240820.1" />
+    <PackageVersion Include="Microsoft.KernelMemory.Core" Version="0.71.240820.1" />
+    <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.SQLServer" Version="0.71.240820.1" />
+    <PackageVersion Include="Microsoft.SemanticKernel" Version="1.17.2" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Abstractions" Version="1.17.2" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Chroma" Version="1.17.1-alpha" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Memory.Chroma" Version="1.0.0-rc3" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.17.1-alpha" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Core" Version="1.17.1" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Core" Version="1.17.2" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="8.1.0" />
-    <PackageVersion Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.1.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="8.2.0" />
+    <PackageVersion Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.2.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="8.1.0" />
-    <PackageVersion Include="Aspire.Hosting.Redis" Version="8.1.0" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="8.2.0" />
   </ItemGroup>
 </Project>
