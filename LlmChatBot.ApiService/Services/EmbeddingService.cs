@@ -1,5 +1,6 @@
 ﻿using LLama;
 using LLama.Common;
+using System.Collections.Generic;
 
 namespace LlmChatBot.ApiService.Services
 {
@@ -22,7 +23,8 @@ namespace LlmChatBot.ApiService.Services
             };
             using var weights = LLamaWeights.LoadFromFile(@params);
             var embedder = new LLamaEmbedder(weights, @params);
-            float[] embeddings = await embedder.GetEmbeddings(text);
+            var readOnlyList = await embedder.GetEmbeddings(text);
+            float[] embeddings = readOnlyList.SelectMany(arr => arr).ToArray();
             return embeddings;
         }
     }
