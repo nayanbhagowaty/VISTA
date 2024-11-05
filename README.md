@@ -1,36 +1,9 @@
 # BEAN
 ## Beginner's Exploring AI Nuances
 ### Project Goals
-#### **A software project to host a local LLM as a private API endpoint for their private AI agent, using Mcrosoft stack**
+#### **A software project to using Microsoft stack to host a local LLM as a private API endpoint for the private AI agents **
 
-#### **1. Core Features**
-- **Efficient Local Hosting:** Ensure the setup is user-friendly, with optimized performance for hardware constraints (e.g., running on GPUs or using quantized models for lighter hardware).
-- **API Management and Customization:** Enable adjustable rate limits, authentication, logging, and metrics tracking to monitor model usage effectively.
-- **Fine-Tuning and Customization:** Allow users to fine-tune or adapt the LLM to their specific needs without extensive ML expertise. A user-friendly interface for tuning and setting model parameters would be beneficial.
-- **Model Version Control:** Track and manage model versions to let users roll back if updates impact performance. This is especially useful for business-critical applications.
-- **Memory and Context Management:** Implement an optional memory function for the model to retain context across interactions when needed.
-- **Monitoring and Logging:** Track request logs, response times, error rates, and memory/CPU usage.
-#### **2. Potential Innovations**
-- **Auto-Scaling Based on Demand:** Create an auto-scaling mechanism for when the model is under heavy load, adjusting computational resources in real-time.
-- **Secure, Local Fine-Tuning:** Design a local, private fine-tuning interface that doesn’t require sending data externally, which can be critical for sensitive data.
-- **Advanced Caching Strategies:** Develop caching strategies to handle repeated queries or frequent requests with similar contexts. It could significantly improve response time.
-- **Federated Learning Capabilities:** Allow updates to the model based on usage data, leveraging federated learning for incremental improvements.
-- **Extensibility for Plugins and Custom Functions:** Create a system that allows users to add plugins or specialized skills, e.g., integrating with databases, running code, or accessing specific tools securely.
-- **AI Performance Metrics Dashboard:** Provide a real-time dashboard showing model usage, response latency, memory usage, and insights for optimization.
-#### **3. User Pain Points to Address**
-- **High Computational Requirements:** LLMs can be resource-intensive, which may pose a challenge for users with limited hardware. Offer lightweight model options and configurations for different setups.
-- **Privacy and Security Concerns:** Users will need assurance of their data’s privacy. Encrypt stored data, add secure API keys, and consider setting up local encryption for stored interactions.
-- **Latency in Responses:** Local hosting could introduce latency, especially if hardware resources are limited. Address this with options to lower response times, such as optimized quantization or alternative response tiers.
-- **Difficult Model Management:** Managing LLMs locally can be complex; users may struggle with updates, compatibility, or customization. Providing clear, automated update pathways and easy rollback options can help.
-- **Scalability for Heavy Loads:** If multiple agents or users rely on the model, managing loads could be challenging. Ensure the design can handle multiple requests or offer queueing and prioritization.
-#### **4. Additional User-Requested Features**
-- **Integration Capabilities:** Easy-to-configure integration with other services (such as voice assistants, chat interfaces, or business applications) will be appealing for various use cases.
-- **Energy Efficiency Monitoring:** Offer energy consumption metrics and optimization suggestions for eco-conscious users.
-- **Quick Setup & Documentation:** Users will likely appreciate a guided setup, intuitive interface, and detailed documentation for onboarding and troubleshooting.
-
-### **Must-Have Features**
-
-These are core functionalities essential to the project’s success.
+These are core functionalities targeted in the project.
 
 **1. Local LLM Hosting & Private API Endpoints**
 - Essential to host the LLM (like PHI-3) locally and expose it as a private API endpoint, as this is the core purpose of the project.
