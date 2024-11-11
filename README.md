@@ -1,7 +1,7 @@
 # BEAN
 ## Beginner's Exploring AI Nuances
 ### Project Goals
-#### **A software project to using Microsoft stack to host a local LLM as a private API endpoint for the private AI agents **
+#### **A software project using Microsoft stack to host a local LLM as a private API endpoint for the private AI agents **
 
 These are core functionalities targeted in the project.
 
