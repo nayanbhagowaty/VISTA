@@ -37,7 +37,7 @@ namespace LlmChatBot.ApiService.Services
             var executor = new InstructExecutor(_context, InstructionPrefix, InstructionSuffix, null);
             var inferenceParams = new InferenceParams()
             {
-                Temperature = 0.8f,
+                //Temperature = 0.8f,
                 MaxTokens = -1,
             };
             string instruction = $"{SystemInstruction}\n\n";

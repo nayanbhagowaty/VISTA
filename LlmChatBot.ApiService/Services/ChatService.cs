@@ -49,7 +49,7 @@ namespace LlmChatBot.ApiService.Services
                 new LLama.Common.ChatHistory.Message(LLama.Common.AuthorRole.User, input.Text),
                 new LLama.Common.InferenceParams()
                 {
-                    RepeatPenalty = 1.0f,
+                    //RepeatPenalty = 1.0f,
                     AntiPrompts = new string[] { "User:" },
                 });
 
@@ -75,7 +75,7 @@ namespace LlmChatBot.ApiService.Services
             var outputs = _session.ChatAsync(new LLama.Common.ChatHistory.Message(LLama.Common.AuthorRole.User, input.Text!)
                 , new LLama.Common.InferenceParams()
                 {
-                    RepeatPenalty = 1.0f,
+                    //RepeatPenalty = 1.0f,
                     AntiPrompts = new string[] { "User:" },
                 });
             await foreach (var output in outputs)
