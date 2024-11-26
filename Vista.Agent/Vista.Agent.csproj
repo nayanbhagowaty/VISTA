@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<!--<TargetFramework>net8.0</TargetFramework>-->
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<NoWarn>SKEXP0001,SKEXP0003,SKEXP0011,SKEXP0013,SKEXP0022,SKEXP0055,SKEXP0060,SKEXP0010,SKEXP0020</NoWarn>
