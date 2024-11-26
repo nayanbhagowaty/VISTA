@@ -1,5 +1,6 @@
-# BEAN
-## Beginner's Exploring AI Nuances
+# VISTA
+## Versatile Intelligent Systems for Text and Assistance
+Emphasizes the extensibility (e.g., VS Code) and focus on LLMs for chat, retrieval-augmented generation (RAG), and tool integration.
 ### Project Goals
 #### **A software project using Microsoft stack to host a local LLM as a private API endpoint for the private AI agents **
 
