@@ -20,8 +20,6 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-    - name: copy build prop
-      run: cp Directory.Build.Props .
     - name: install workload
       run: dotnet workload install aspire
     - name: Restore dependencies
