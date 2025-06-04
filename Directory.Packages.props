@@ -4,32 +4,32 @@
     <NuGetPackageSource>https://api.nuget.org/v3/index.json</NuGetPackageSource>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="LLamaSharp" Version="0.21.0" />
-    <PackageVersion Include="LLamaSharp.Backend.Cuda12" Version="0.21.0" />
-    <PackageVersion Include="Markdig.Signed" Version="0.40.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
+    <PackageVersion Include="LLamaSharp" Version="0.24.0" />
+    <PackageVersion Include="LLamaSharp.Backend.Cuda12" Version="0.24.0" />
+    <PackageVersion Include="Markdig.Signed" Version="0.41.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.2.0" />
-    <PackageVersion Include="Microsoft.KernelMemory.Abstractions" Version="0.97.250211.1" />
-    <PackageVersion Include="Microsoft.KernelMemory.Core" Version="0.97.250211.1" />
-    <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.SQLServer" Version="0.97.250211.1" />
-    <PackageVersion Include="Microsoft.SemanticKernel" Version="1.37.0" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Abstractions" Version="1.37.0" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Chroma" Version="1.30.0-alpha" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.5.0" />
+    <PackageVersion Include="Microsoft.KernelMemory.Abstractions" Version="0.98.250508.3" />
+    <PackageVersion Include="Microsoft.KernelMemory.Core" Version="0.98.250508.3" />
+    <PackageVersion Include="Microsoft.KernelMemory.MemoryDb.SQLServer" Version="0.98.250508.3" />
+    <PackageVersion Include="Microsoft.SemanticKernel" Version="1.55.0" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Abstractions" Version="1.55.0" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Chroma" Version="1.55.0-alpha" />
     <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Memory.Chroma" Version="1.0.0-rc3" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.30.0-preview" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Core" Version="1.37.0" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.11.1" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.11.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.11.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.11.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.11.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.0.0" />
-    <PackageVersion Include="Aspire.StackExchange.Redis.OutputCaching" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.55.0-preview" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Core" Version="1.55.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.0" />
+    <PackageVersion Include="Aspire.StackExchange.Redis.OutputCaching" Version="9.3.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.0.0" />
-    <PackageVersion Include="Aspire.Hosting.Redis" Version="9.0.0" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.3.0" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="9.3.0" />
   </ItemGroup>
 </Project>
